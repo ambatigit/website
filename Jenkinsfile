@@ -1,20 +1,7 @@
-pipeline {
-    agent any
-    stages {
-        stage('---clean---') {
-            steps {
-                sh "mvn clean"
-            }
-        }
-        stage('--test--') {
-            steps {
-                sh "mvn test"
-            }
-        }
-        stage('--package--') {
-            steps {
-                sh "mvn package"
-            }
-        }
+node 
+{
+    stage ('checkout')
+    {
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'bitbucket', url: 'http://192.168.0.108:7990/scm/proj2/rep02.git']]])
     }
 }
